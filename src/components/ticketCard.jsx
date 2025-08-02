@@ -1,13 +1,9 @@
-import {
-  Paper,
-  Typography,
-  Stack,
-  Button,
-  Divider,
-} from "@mui/material";
+import { Paper, Typography, Stack, Button, Divider } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
 
 const FlightCard = ({ ticket }) => {
   const {
+    id,
     origin_city,
     destination_city,
     origin_airport,
@@ -16,8 +12,9 @@ const FlightCard = ({ ticket }) => {
     airline,
     price,
     currency,
-    link,
   } = ticket;
+
+  const navigate = useNavigate();
 
   const time = new Date(departure_at).toLocaleTimeString([], {
     hour: "2-digit",
@@ -54,9 +51,9 @@ const FlightCard = ({ ticket }) => {
 
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Typography variant="h6">
-            {price} {currency}
+          {price} {currency}
         </Typography>
-        <Button variant="outlined" href={link}>
+        <Button variant="outlined" onClick={() => navigate(`/flight/${id}`)}>
           Подробнее
         </Button>
       </Stack>

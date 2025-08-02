@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Navbar from "../components/navbar";
 import '../css/register.css';
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from '../utils/auth';
@@ -79,7 +78,6 @@ function Register() {
 
   return (
     <>
-      <Navbar />
       <div className="register-container">
         <div className="section-register-1">
           <h2>Регистрация</h2>

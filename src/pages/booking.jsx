@@ -1,19 +1,9 @@
 import { useEffect, useState, useCallback } from "react";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  CircularProgress,
-  TextField,
-  Grid
-} from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select, CircularProgress, TextField, Grid } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import FlightCard from "../components/ticketCard";
-import Navbar from "../components/navbar";
-import Footer from "../components/footer";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import '../css/booking.css'
@@ -94,7 +84,6 @@ function SearchResults() {
 
   return (
     <div className="page-container">
-      <Navbar />
 
       <div className="content-wrap">
         <h2 className="page-title">
@@ -194,8 +183,6 @@ function SearchResults() {
           </>
         )}
       </div>
-
-      <Footer />
     </div>
   );
 }

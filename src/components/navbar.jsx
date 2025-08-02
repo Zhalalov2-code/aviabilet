@@ -84,8 +84,8 @@ function Navbar() {
               <div className={`nav-tab ${location.pathname === '/booking' ? 'active' : ''}`}>
                 <Link to="/booking"><p className="m-0 mt-1">Авиабилеты</p></Link>
               </div>
-              <div className={`nav-tab ${location.pathname === '/favorites' ? 'active' : ''}`}>
-                <Link><p className="m-0 mt-1">Избранное</p></Link>
+              <div className={`nav-tab ${location.pathname === '/basket' ? 'active' : ''}`}>
+                <Link to="/basket"><p className="m-0 mt-1">Корзина</p></Link>
               </div>
             </div>
           </div>
@@ -114,7 +114,7 @@ function Navbar() {
               ) : (
                 <>
                   <MenuItem onClick={handleClose}>
-                    <Link to="/my-tickets" className="text-decoration-none text-dark">
+                    <Link to="/basket" className="text-decoration-none text-dark">
                       Мои билеты
                     </Link>
                   </MenuItem>

@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import Navbar from '../components/navbar';
 import '../css/profile.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '../utils/auth';
 import { FaEdit } from 'react-icons/fa';
 import { auth } from '../firebase/firebase';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const API_URL = 'https://6873df93c75558e27355818e.mockapi.io/users';
 
@@ -90,11 +90,16 @@ function Profile() {
         }
     };
 
-    if (!user) return <div>Загрузка...</div>;
+    if (!user) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '100px' }}>
+                <CircularProgress />
+            </div>
+        );
+    }
 
     return (
         <>
-            <Navbar />
             <div className="profile-container">
                 <h2>Профиль пользователя</h2>
 
@@ -118,7 +123,7 @@ function Profile() {
                                 onClick={() => handleSaveField('avatar')}
                                 disabled={loading}
                             >
-                                {loading ? 'Сохраняем...' : 'Сохранить'}
+                                {loading ? <CircularProgress size={20} /> : 'Сохранить'}
                             </button>
                         )}
                     </div>
@@ -140,7 +145,7 @@ function Profile() {
                                 onClick={() => handleSaveField('name')}
                                 disabled={loading}
                             >
-                                {loading ? 'Сохраняем...' : 'Сохранить'}
+                                {loading ? <CircularProgress size={20} /> : 'Сохранить'}
                             </button>
                         )}
                     </div>
@@ -162,7 +167,7 @@ function Profile() {
                                 onClick={() => handleSaveField('lastname')}
                                 disabled={loading}
                             >
-                                {loading ? 'Сохраняем...' : 'Сохранить'}
+                                {loading ? <CircularProgress size={20} /> : 'Сохранить'}
                             </button>
                         )}
                     </div>
@@ -184,7 +189,7 @@ function Profile() {
                                 onClick={() => handleSaveField('telephone')}
                                 disabled={loading}
                             >
-                                {loading ? 'Сохраняем...' : 'Сохранить'}
+                                {loading ? <CircularProgress size={20} /> : 'Сохранить'}
                             </button>
                         )}
                     </div>

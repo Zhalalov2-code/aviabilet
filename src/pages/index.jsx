@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/navbar";
 import '../css/index.css';
 import Reklama from '../img/reklama.png';
 import SpecialOfferCard from '../components/special-offers';
@@ -14,7 +13,6 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import { CircularProgress } from '@mui/material';
-import Footer from "../components/footer";
 import { getUserCity } from "../utils/getCurrentCity";
 
 function Home() {
@@ -112,7 +110,6 @@ function Home() {
 
   return (
     <div>
-      <Navbar />
       <div className="container">
         <div className="row">
           <div className="col-12 text-center p-5">
@@ -209,7 +206,6 @@ function Home() {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

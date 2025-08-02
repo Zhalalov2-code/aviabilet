@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
 
       if (firebaseUser) {
         try {
-          const res = await axios.get(`${API_URL}?firebase_uid=${firebaseUser.uid}`);
+          const res = await axios.get(`${API_URL}?uid=${firebaseUser.uid}`);
           setProfile(res.data[0] || null);
         } catch (error) {
           console.error('Ошибка при загрузке профиля пользователя:', error);

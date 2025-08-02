@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Navbar from "../components/navbar";
 import '../css/login.css';
 import { Snackbar, Alert } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
@@ -54,7 +53,6 @@ function Login() {
 
   return (
     <div>
-      <Navbar />
       <div className="login-container">
         <form className="section-login-1" onSubmit={handleSubmit}>
           <h2>Вход в систему</h2>
