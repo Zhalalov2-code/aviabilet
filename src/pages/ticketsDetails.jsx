@@ -56,11 +56,10 @@ function FlightDetails() {
                 baggage,
                 total_price: totalPrice,
                 booked_by: profile.name,
-                uid: user.uid,
-                id: user.id
+                uid: user.uid
             });
-
             setSnackbar(true);
+            
         } catch (err) {
             alert("Ошибка при добавлении в корзину");
         }
