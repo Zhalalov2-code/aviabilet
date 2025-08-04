@@ -55,3 +55,56 @@
 a{
     text-decoration: none;
 }
+
+@media (max-width: 768px) {
+  .body {
+    height: auto;
+    padding: 10px 0;
+  }
+
+  .icon-img {
+    width: 120px;
+  }
+
+  .section-1 {
+    flex-direction: column;
+    height: auto;
+    padding: 5px;
+    max-width: 100%;
+    margin-top: 10px;
+  }
+
+  .nav-tab {
+    width: 100%;
+    margin: 4px 0;
+  }
+
+  .nav-tab p {
+    font-size: 14px;
+  }
+
+  .container {
+    padding: 0 10px;
+  }
+
+  .row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .col-2,
+  .col-4 {
+    width: 100%;
+    justify-content: center !important;
+    text-align: center;
+  }
+
+  .col-2.d-flex {
+    justify-content: center !important;
+  }
+
+  .text-white.ms-2 {
+    display: none;
+  }
+}
+

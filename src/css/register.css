@@ -79,3 +79,52 @@
 .link-login:hover {
   text-decoration: underline;
 }
+
+@media (max-width: 600px) {
+  .register-container {
+    height: auto;
+    padding: 20px 10px;
+  }
+
+  .section-register-1 {
+    padding: 20px;
+    box-shadow: none;
+    border: none;
+  }
+
+  .register-form {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .register-form label {
+    grid-column: span 1;
+    font-size: 14px;
+  }
+
+  .register-form input {
+    font-size: 14px;
+    padding: 9px;
+  }
+
+  .register-form .error {
+    font-size: 12px;
+  }
+
+  .btn-primary {
+    grid-column: span 1;
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  .link-login {
+    grid-column: span 1;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+
+  .section-register-1 h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+}

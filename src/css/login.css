@@ -59,3 +59,46 @@
 .link-register:hover {
   text-decoration: underline;
 }
+
+@media (max-width: 480px) {
+  .login-container {
+    height: auto;
+    padding: 20px 10px;
+  }
+
+  .section-login-1 {
+    padding: 20px;
+    box-shadow: none;
+    border: none;
+    background-color: transparent;
+  }
+
+  .section-login-1 h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  .section-login-1 input {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .section-login-1 button {
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  .link-register {
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .text-center {
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .error {
+    font-size: 13px;
+  }
+}

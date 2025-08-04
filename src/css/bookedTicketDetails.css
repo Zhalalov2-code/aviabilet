@@ -1,0 +1,25 @@
+.booked-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+@media (max-width: 600px) {
+  .booked-container {
+    margin: 20px 10px;
+    padding: 16px;
+  }
+
+  .booked-container h5 {
+    font-size: 1.2rem;
+  }
+
+  .booked-container p {
+    font-size: 0.9rem;
+  }
+
+  .booked-container button {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+  }
+}

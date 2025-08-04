@@ -1,9 +1,10 @@
 import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
-import { Paper, Typography, IconButton, Divider, Stack, CircularProgress, Button } from "@mui/material";
+import { Paper, Typography, IconButton, Divider, CircularProgress, Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useAuth } from "../utils/authContext";
 import { useNavigate } from "react-router-dom";
+import '../css/basket.css';
 
 const BASKET_API = "https://6873df93c75558e27355818e.mockapi.io/basket";
 
@@ -72,7 +73,7 @@ function Basket() {
 
     return (
         <>
-            <div style={{ maxWidth: 800, margin: "50px auto", padding: 20 }}>
+            <div className="basket-container">
                 <Typography variant="h5" gutterBottom>
                     Моя корзина
                 </Typography>
@@ -81,10 +82,10 @@ function Basket() {
                     <Paper
                         key={item.id}
                         elevation={3}
-                        sx={{ p: 2, mb: 2, borderRadius: 2 }}
+                        className="basket-item"
                     >
-                        <Stack direction="row" justifyContent="space-between" alignItems="center">
-                            <div>
+                        <div className="basket-item-content">
+                            <div className="basket-item-details">
                                 <Typography variant="subtitle1">
                                     Рейс № {item.flight_number} — {item.airline}
                                 </Typography>
@@ -102,16 +103,19 @@ function Basket() {
                                     Забронировано: {item.booked_by || "Неизвестно"}
                                 </Typography>
                             </div>
-                            <Stack alignItems="flex-end">
+                            <div className="basket-actions">
                                 <Typography variant="h6">{item.total_price} €</Typography>
                                 <IconButton onClick={() => handleDelete(item.id)}>
                                     <DeleteIcon />
                                 </IconButton>
-                                <Button variant="outlined" onClick={() => navigate(`/booked/${item.id}`)}>
+                                <Button
+                                    variant="outlined"
+                                    onClick={() => navigate(`/booked/${item.id}`)}
+                                >
                                     Подробнее
                                 </Button>
-                            </Stack>
-                        </Stack>
+                            </div>
+                        </div>
                     </Paper>
                 ))}
 
@@ -133,6 +137,7 @@ function Basket() {
             </div>
         </>
     );
+
 }
 
 export default Basket;

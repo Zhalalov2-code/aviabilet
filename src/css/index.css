@@ -78,3 +78,55 @@ h1 {
     max-width: 300px;
   }
 }
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+    line-height: 1.4;
+  }
+
+  .form-control {
+    padding: 0 10px;
+    gap: 10px;
+  }
+
+  .form-control .MuiFormControl-root {
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  .btn-search {
+    font-size: 15px;
+    height: 50px;
+  }
+
+  .MuiInputBase-root {
+    height: 50px;
+  }
+
+  .MuiInputBase-input {
+    font-size: 14px;
+  }
+
+  .MuiInputLabel-root {
+    font-size: 14px;
+  }
+
+  .MuiFormLabel-root {
+    font-size: 13px;
+  }
+
+  img[alt="Реклама"] {
+    width: 100%;
+    height: auto;
+  }
+
+  .p-2 {
+    padding: 8px !important;
+  }
+
+  .col-12.px-5 {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}

@@ -35,3 +35,51 @@ body, html, #root {
   align-items: center;
   height: 200px;
 }
+
+@media (max-width: 768px) {
+  .content-wrap {
+    padding: 16px;
+  }
+
+  .page-title {
+    font-size: 1.2rem;
+  }
+
+  .search-grid {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .MuiFormControl-root,
+  .MuiTextField-root {
+    font-size: 14px;
+  }
+
+  .loading-spinner {
+    height: 120px;
+  }
+
+  .text-center {
+    text-align: center;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 1rem;
+    margin-bottom: 16px;
+  }
+
+  .MuiInputBase-input {
+    font-size: 13px;
+  }
+
+  .MuiInputLabel-root {
+    font-size: 13px;
+  }
+
+  .MuiSelect-select {
+    font-size: 13px;
+  }
+}

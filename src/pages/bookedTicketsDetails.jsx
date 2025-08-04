@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Paper, Typography, CircularProgress, Stack, Divider, Button } from '@mui/material';
+import '../css/bookedTicketDetails.css'
 
 const BASKET_URL = 'https://6873df93c75558e27355818e.mockapi.io/basket';
 
@@ -40,7 +41,7 @@ function BookedFlightDetails() {
 
   return (
     <>
-      <div style={{ maxWidth: 700, margin: '40px auto', padding: 20 }}>
+      <div className="booked-container">
         <Paper elevation={4} sx={{ p: 4, borderRadius: 3 }}>
           <Typography variant="h5" gutterBottom>
             Детали бронирования
@@ -72,6 +73,7 @@ function BookedFlightDetails() {
       </div>
     </>
   );
+
 }
 
 export default BookedFlightDetails;

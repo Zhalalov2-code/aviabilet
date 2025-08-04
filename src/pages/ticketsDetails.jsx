@@ -56,7 +56,8 @@ function FlightDetails() {
                 baggage,
                 total_price: totalPrice,
                 booked_by: profile.name,
-                uid: user.uid
+                uid: user.uid,
+                id: user.id
             });
 
             setSnackbar(true);
