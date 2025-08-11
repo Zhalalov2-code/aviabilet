@@ -17,9 +17,18 @@ export const AuthProvider = ({ children }) => {
       setUser(firebaseUser);
 
       if (firebaseUser) {
+        const saved = localStorage.getItem('currentUser');
+        if (saved) {
+          try {
+            setProfile(JSON.parse(saved));
+            setLoading(false);
+            return; 
+          } catch { }
+        }
+
         try {
-          const res = await axios.get(`${API_URL}?uid=${firebaseUser.uid}`);
-          setProfile(res.data[0] || null);
+          const res = await axios.get(API_URL, { params: { uid: firebaseUser.uid } });
+          setProfile(Array.isArray(res.data) ? res.data[0] || null : null);
         } catch (error) {
           console.error('Ошибка при загрузке профиля пользователя:', error);
           setProfile(null);
@@ -27,7 +36,6 @@ export const AuthProvider = ({ children }) => {
       } else {
         setProfile(null);
       }
-
       setLoading(false);
     });
 

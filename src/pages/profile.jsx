@@ -25,7 +25,21 @@ function Profile() {
     useEffect(() => {
         if (!loading && profile) {
             setForm({ ...profile });
+            return;
         }
+
+        if (!loading && user && !profile) {
+            try {
+                const saved = localStorage.getItem('currentUser');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    if (parsed && typeof parsed === 'object') {
+                        setForm(parsed);
+                    }
+                }
+            } catch { }
+        }
+
         if (!loading && !user) {
             navigate('/login');
         }
@@ -43,8 +57,13 @@ function Profile() {
     const handleSaveField = async (field) => {
         setUpdating(true);
         try {
-            const updated = await axios.put(`${API_URL}/${profile.id}`, form);
+            const updated = await axios.put(`${API_URL}/${form?.id || profile?.id}`, form);
             setForm(updated.data);
+
+            try {
+                localStorage.setItem('currentUser', JSON.stringify(updated.data));
+            } catch { }
+
             alert(`${field} обновлён`);
             toggleEdit(field);
         } catch (err) {
@@ -57,14 +76,19 @@ function Profile() {
     const handleDelete = async () => {
         if (window.confirm("Вы уверены, что хотите удалить профиль?")) {
             try {
-                await axios.delete(`${API_URL}/${profile.id}`);
-
+                const targetId = form?.id || profile?.id;
+                if (!targetId) { alert('ID профиля не найден. Попробуйте обновить страницу.'); return; }
+                await axios.delete(`${API_URL}/${targetId}`);
                 const firebaseUser = auth.currentUser;
                 if (firebaseUser) {
                     await firebaseUser.delete();
                 }
 
                 await logoutUser();
+                try {
+                    localStorage.removeItem('currentUser');
+                } catch { }
+
                 navigate('/login');
             } catch (error) {
                 if (error.code === 'auth/requires-recent-login') {

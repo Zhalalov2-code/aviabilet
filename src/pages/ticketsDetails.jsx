@@ -40,9 +40,17 @@ function FlightDetails() {
     const handleAddToBasket = async () => {
         if (loading) return;
 
-        if (!user || !profile) {
+        if (!user) {
             setOpenModal(true);
             return;
+        }
+
+        let effectiveProfile = profile;
+        if (!effectiveProfile) {
+            try {
+                const saved = localStorage.getItem('currentUser');
+                if (saved) effectiveProfile = JSON.parse(saved);
+            } catch { }
         }
 
         try {
@@ -55,15 +63,15 @@ function FlightDetails() {
                 passengers,
                 baggage,
                 total_price: totalPrice,
-                booked_by: profile.name,
+                booked_by: (effectiveProfile && effectiveProfile.name) || user.displayName || '',
                 uid: user.uid
             });
             setSnackbar(true);
-            
         } catch (err) {
             alert("Ошибка при добавлении в корзину");
         }
     };
+
 
     if (loading || flightLoading) {
         return (
