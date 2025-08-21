@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/static/css/main.92016bec.css",
+    "main.js": "/static/js/main.5871bf41.js",
+    "static/js/453.670e15c7.chunk.js": "/static/js/453.670e15c7.chunk.js",
+    "static/media/reklama.png": "/static/media/reklama.5f7dfbdf536f1df6ab76.png",
+    "static/media/air-express.png": "/static/media/air-express.412edd21f0c0df323843.png",
+    "static/media/slick.svg": "/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
+    "index.html": "/index.html",
+    "main.92016bec.css.map": "/static/css/main.92016bec.css.map",
+    "main.5871bf41.js.map": "/static/js/main.5871bf41.js.map",
+    "453.670e15c7.chunk.js.map": "/static/js/453.670e15c7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.92016bec.css",
+    "static/js/main.5871bf41.js"
+  ]
+}

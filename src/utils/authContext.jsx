@@ -19,11 +19,13 @@ export const AuthProvider = ({ children }) => {
       if (firebaseUser) {
         const saved = localStorage.getItem('currentUser');
         if (saved) {
-          try {
-            setProfile(JSON.parse(saved));
-            setLoading(false);
-            return; 
-          } catch { }
+                  try {
+          setProfile(JSON.parse(saved));
+          setLoading(false);
+          return; 
+        } catch (error) {
+          console.warn('Ошибка при парсинге данных из localStorage:', error);
+        }
         }
 
         try {

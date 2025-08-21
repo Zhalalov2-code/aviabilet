@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from "react-router-dom";
 import '../css/index.css';
-import Reklama from '../img/reklama.png';
 import SpecialOfferCard from '../components/special-offers';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -38,6 +37,8 @@ function Home() {
       setSpecialOffers(response.data);
     } catch (error) {
       console.error("Ошибка загрузки спецпредложений:", error);
+      // Устанавливаем пустой массив в случае ошибки
+      setSpecialOffers([]);
     }
   }, []);
 
@@ -60,6 +61,7 @@ function Home() {
       }
     } catch (err) {
       console.error("Ошибка определения города:", err);
+      // Не устанавливаем город по умолчанию, оставляем поле пустым
     }
   }, []);
 
@@ -109,100 +111,162 @@ function Home() {
   };
 
   return (
-    <div>
-      <div className="container">
-        <div className="row">
-          <div className="col-12 text-center p-5">
-            <h1>Удобный поиск дешёвых <br /> авиабилетов</h1>
-          </div>
+    <div className="home-container">
+      <div className="hero-section">
+        <div className="hero-background"></div>
+        <div className="container">
+          <div className="row">
+            <div className="col-12 text-center hero-content">
+              <div className="hero-badge">
+                ✈️ Лучшие цены на авиабилеты
+              </div>
+              <h1 className="hero-title">
+                Удобный поиск дешёвых <br />
+                <span className="gradient-text">авиабилетов</span>
+              </h1>
+              <p className="hero-subtitle">
+                Найдите идеальные билеты по лучшим ценам и отправьтесь в незабываемое путешествие
+              </p>
+            </div>
 
-          <div className="col-12">
-            <div className="form-control" style={{ marginBottom: "40px" }}>
-              <Autocomplete
-                options={cities}
-                getOptionLabel={(option) => option.label}
-                value={cities.find(city => city.label === from) || null}
-                onChange={(e, value) => setFrom(value ? value.label : "")}
-                renderInput={(params) => (
-                  <TextField {...params} label="Откуда" fullWidth />
-                )}
-              />
+            <div className="col-12">
+              <div className="search-form-container">
+                <div className="search-form">
+                  <div className="form-header">
+                    <h3>🔍 Поиск авиабилетов</h3>
+                    <p>Заполните форму ниже для поиска лучших предложений</p>
+                  </div>
+                  <div className="form-fields">
+                    <div className="field-group">
+                      <label className="field-label">🛫 Откуда</label>
+                      <Autocomplete
+                        options={cities}
+                        getOptionLabel={(option) => option.label}
+                        value={cities.find(city => city.label === from) || null}
+                        onChange={(e, value) => setFrom(value ? value.label : "")}
+                        renderInput={(params) => (
+                          <TextField 
+                            {...params} 
+                            placeholder="Выберите город отправления"
+                            className="search-field"
+                          />
+                        )}
+                      />
+                    </div>
 
-              <Autocomplete
-                options={cities}
-                getOptionLabel={(option) => option.label}
-                value={cities.find(city => city.label === to) || null}
-                onChange={(e, value) => setTo(value ? value.label : "")}
-                renderInput={(params) => (
-                  <TextField {...params} label="Куда" fullWidth />
-                )}
-              />
+                    <div className="field-group">
+                      <label className="field-label">🛬 Куда</label>
+                      <Autocomplete
+                        options={cities}
+                        getOptionLabel={(option) => option.label}
+                        value={cities.find(city => city.label === to) || null}
+                        onChange={(e, value) => setTo(value ? value.label : "")}
+                        renderInput={(params) => (
+                          <TextField 
+                            {...params} 
+                            placeholder="Выберите город назначения"
+                            className="search-field"
+                          />
+                        )}
+                      />
+                    </div>
 
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  label="Туда"
-                  value={startDate}
-                  onChange={(newValue) => setStartDate(newValue)}
-                  renderInput={(params) => <TextField {...params} fullWidth />}
-                />
-              </LocalizationProvider>
+                    <div className="field-group">
+                      <label className="field-label">📅 Дата вылета</label>
+                      <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <DatePicker
+                          value={startDate}
+                          onChange={(newValue) => setStartDate(newValue)}
+                          renderInput={(params) => (
+                            <TextField 
+                              {...params} 
+                              placeholder="Выберите дату"
+                              className="search-field"
+                            />
+                          )}
+                        />
+                      </LocalizationProvider>
+                    </div>
 
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  label="Обратно"
-                  value={endDate}
-                  onChange={(newValue) => setEndDate(newValue)}
-                  renderInput={(params) => <TextField {...params} fullWidth />}
-                />
-              </LocalizationProvider>
+                    <div className="field-group">
+                      <label className="field-label">📅 Дата возвращения</label>
+                      <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <DatePicker
+                          value={endDate}
+                          onChange={(newValue) => setEndDate(newValue)}
+                          renderInput={(params) => (
+                            <TextField 
+                              {...params} 
+                              placeholder="Выберите дату (необязательно)"
+                              className="search-field"
+                            />
+                          )}
+                        />
+                      </LocalizationProvider>
+                    </div>
 
-              <button className="btn-search" onClick={handleSearch}>
-                Найти билет
-              </button>
+                    <div className="field-group search-button-group">
+                      <button className="btn-search" onClick={handleSearch}>
+                        🔍 Найти билеты
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div className="col-12 text-center mt-5">
-            <img width={800} src={Reklama} alt="Реклама" />
-          </div>
 
-          <div className="col-12 text-center mt-5">
-            <h1>Специальные предложения</h1>
-          </div>
 
-          <div className="col-12 px-5 mt-2 mb-5">
-            {specialOffers.length === 0 ? (
-              <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '200px'
-              }}>
-                <CircularProgress />
+      {/* Секция специальных предложений */}
+      <div className="special-offers-section">
+        <div className="container">
+          <div className="row">
+            <div className="col-12 text-center">
+              <div className="section-header">
+                <h2 className="section-title">
+                  🌟 Специальные предложения
+                </h2>
+                <p className="section-subtitle">
+                  Лучшие цены на популярные направления
+                </p>
               </div>
-            ) : (
-              <Slider {...sliderSettings}>
-                {specialOffers.map((offer) => (
-                  <div
-                    key={offer.destination_airport + offer.departure_at}
-                    className="p-2"
-                  >
-                    <SpecialOfferCard
-                      city={offer.destination_city}
-                      country={offer.destination_airport}
-                      price={offer.price}
-                      imgSrc={offer.image}
-                      onDetails={() => {
-                        const params = new URLSearchParams({
-                          to: offer.destination_city
-                        });
-                        navigate(`/booking?${params.toString()}`);
-                      }}
-                    />
+            </div>
+
+            <div className="col-12">
+              <div className="offers-container">
+                {specialOffers.length === 0 ? (
+                  <div className="loading-container">
+                    <CircularProgress size={60} />
+                    <p>Загружаем специальные предложения...</p>
                   </div>
-                ))}
-              </Slider>
-            )}
+                ) : (
+                  <Slider {...sliderSettings}>
+                    {specialOffers.map((offer) => (
+                      <div
+                        key={offer.destination_airport + offer.departure_at}
+                        className="offer-slide"
+                      >
+                        <SpecialOfferCard
+                          city={offer.destination_city}
+                          country={offer.destination_airport}
+                          price={offer.price}
+                          imgSrc={offer.image}
+                          onDetails={() => {
+                            const params = new URLSearchParams({
+                              to: offer.destination_city
+                            });
+                            navigate(`/booking?${params.toString()}`);
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </Slider>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>

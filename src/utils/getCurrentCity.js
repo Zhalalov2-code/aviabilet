@@ -10,7 +10,7 @@ export const getUserCity = async () => {
         const { latitude, longitude } = position.coords;
         try {
           const res = await fetch(
-            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=eg`
+            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=ru`
           );
           const data = await res.json();
           if (data.city) {

@@ -24,7 +24,11 @@ export async function registerUser(email, password, additional = {}) {
   };
 
   const { data } = await axios.post(API_URL, mockData);
-  try { localStorage.setItem('currentUser', JSON.stringify(data)); } catch { }
+  try { 
+    localStorage.setItem('currentUser', JSON.stringify(data)); 
+  } catch (error) {
+    console.warn('Не удалось сохранить пользователя в localStorage:', error);
+  }
   return user;
 }
 
@@ -52,7 +56,11 @@ export async function loginWithGoogle() {
     userData = created.data;
   }
 
-  localStorage.setItem('currentUser', JSON.stringify(userData));
+  try {
+    localStorage.setItem('currentUser', JSON.stringify(userData));
+  } catch (error) {
+    console.warn('Не удалось сохранить пользователя в localStorage:', error);
+  }
   return userData;
 }
 
@@ -61,7 +69,11 @@ export async function loginUser(email, password) {
   const { user } = await signInWithEmailAndPassword(auth, email, password);
   const res = await axios.get(`${API_URL}?email=${user.email}`);
   const userData = res.data[0];
-  localStorage.setItem('currentUser', JSON.stringify(userData));
+  try {
+    localStorage.setItem('currentUser', JSON.stringify(userData));
+  } catch (error) {
+    console.warn('Не удалось сохранить пользователя в localStorage:', error);
+  }
   return userData;
 }
 

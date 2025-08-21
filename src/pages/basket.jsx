@@ -21,6 +21,7 @@ function Basket() {
             setItems(filtered);
         } catch (err) {
             console.error("Ошибка при загрузке корзины:", err);
+            setItems([]);
         } finally {
             setLoading(false);
         }
@@ -74,8 +75,20 @@ function Basket() {
     return (
         <>
             <div className="basket-container">
-                <Typography variant="h5" gutterBottom>
-                    Моя корзина
+                <Typography 
+                    variant="h4" 
+                    gutterBottom
+                    sx={{
+                        background: 'linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%)',
+                        backgroundClip: 'text',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        fontWeight: 700,
+                        textAlign: 'center',
+                        mb: 4
+                    }}
+                >
+                    🛒 Моя корзина
                 </Typography>
 
                 {items.map((item) => (
@@ -86,33 +99,56 @@ function Basket() {
                     >
                         <div className="basket-item-content">
                             <div className="basket-item-details">
-                                <Typography variant="subtitle1">
-                                    Рейс № {item.flight_number} — {item.airline}
+                                <Typography variant="h6" className="basket-item-title">
+                                    ✈️ Рейс № {item.flight_number} — {item.airline}
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    {item.origin_city} → {item.destination_city}
+                                <Typography variant="body2" className="basket-item-route">
+                                    🛫 {item.origin_city} → 🛬 {item.destination_city}
                                 </Typography>
-                                <Typography variant="body2">
-                                    Пассажиров: {item.passengers} | Багаж:{" "}
+                                <Typography variant="body2" className="basket-item-info">
+                                    👥 Пассажиров: {item.passengers} | 🧳 Багаж:{" "}
                                     {item.baggage === "full" ? "С багажом" : "Ручная кладь"}
                                 </Typography>
-                                <Typography variant="body2">
-                                    Вылет: {new Date(item.departure_at).toLocaleString()}
+                                <Typography variant="body2" className="basket-item-time">
+                                    🕐 Вылет: {new Date(item.departure_at).toLocaleString()}
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    Забронировано: {item.booked_by || "Неизвестно"}
+                                <Typography variant="body2" className="basket-item-user">
+                                    👤 Забронировано: {item.booked_by || "Неизвестно"}
                                 </Typography>
                             </div>
                             <div className="basket-actions">
-                                <Typography variant="h6">{item.total_price} €</Typography>
-                                <IconButton onClick={() => handleDelete(item.id)}>
+                                <Typography variant="h6" className="basket-price">
+                                    {item.total_price} €
+                                </Typography>
+                                <IconButton 
+                                    onClick={() => handleDelete(item.id)}
+                                    sx={{
+                                        color: 'var(--error-color)',
+                                        '&:hover': {
+                                            backgroundColor: 'rgba(244, 67, 54, 0.1)',
+                                            transform: 'scale(1.1)'
+                                        },
+                                        transition: 'all 0.2s ease'
+                                    }}
+                                >
                                     <DeleteIcon />
                                 </IconButton>
                                 <Button
-                                    variant="outlined"
+                                    variant="contained"
                                     onClick={() => navigate(`/booked/${item.id}`)}
+                                    sx={{
+                                        background: 'linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%)',
+                                        color: 'white',
+                                        fontWeight: 600,
+                                        '&:hover': {
+                                            background: 'linear-gradient(135deg, var(--primary-light) 0%, var(--primary-color) 100%)',
+                                            transform: 'translateY(-2px)',
+                                            boxShadow: 'var(--shadow-lg)'
+                                        },
+                                        transition: 'all 0.3s ease'
+                                    }}
                                 >
-                                    Подробнее
+                                    📋 Подробнее
                                 </Button>
                             </div>
                         </div>
@@ -121,18 +157,41 @@ function Basket() {
 
                 <Divider sx={{ my: 2 }} />
 
-                <Typography variant="h6" align="right">
-                    Общая сумма: {totalSum} €
+                <Typography 
+                    variant="h5" 
+                    align="right"
+                    sx={{
+                        background: 'linear-gradient(135deg, var(--success-color) 0%, #45a049 100%)',
+                        backgroundClip: 'text',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        fontWeight: 700,
+                        mb: 3
+                    }}
+                >
+                    💰 Общая сумма: {totalSum} €
                 </Typography>
 
                 <Button
                     variant="contained"
-                    color="success"
                     fullWidth
-                    sx={{ mt: 2 }}
+                    sx={{ 
+                        mt: 2,
+                        background: 'linear-gradient(135deg, var(--success-color) 0%, #45a049 100%)',
+                        color: 'white',
+                        fontWeight: 600,
+                        fontSize: 'var(--font-size-lg)',
+                        py: 2,
+                        '&:hover': {
+                            background: 'linear-gradient(135deg, #45a049 0%, var(--success-color) 100%)',
+                            transform: 'translateY(-2px)',
+                            boxShadow: 'var(--shadow-lg)'
+                        },
+                        transition: 'all 0.3s ease'
+                    }}
                     onClick={() => alert("💳 Оплата ещё не реализована")}
                 >
-                    Перейти к оплате
+                    💳 Перейти к оплате
                 </Button>
             </div>
         </>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import '../css/register.css';
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from '../utils/auth';
+import PasswordStrength from '../components/PasswordStrength';
 
 function Register() {
   const [form, setForm] = useState({
@@ -28,16 +29,28 @@ function Register() {
     if (!form.name.trim()) newErrors.name = "Имя обязательно";
     if (!form.lastname.trim()) newErrors.lastname = "Фамилия обязательна";
     if (!form.email.includes("@") || !form.email.includes(".")) newErrors.email = "Некорректный email";
-    if (form.password.length < 6) newErrors.password = "Пароль минимум 6 символов";
+    
+    // Валидация пароля с объединением всех требований
+    const passwordErrors = [];
+    if (form.password.length < 6) passwordErrors.push("минимум 6 символов");
+    if (!/[A-Z]/.test(form.password)) passwordErrors.push("заглавную букву");
+    if (!/[0-9]/.test(form.password)) passwordErrors.push("цифру");
+    if (!/[!.-]/.test(form.password)) passwordErrors.push("символ (! . -)");
+    
+    if (passwordErrors.length > 0) {
+      newErrors.password = `Пароль должен содержать: ${passwordErrors.join(", ")}`;
+    }
+    
     if (form.password !== form.confirmPassword) newErrors.confirmPassword = "Пароли не совпадают";
-    if (!/[A-Z]/.test(form.password)) newErrors.password = "Пароль должен содержать заглавную букву";
-    if (!/[0-9]/.test(form.password)) newErrors.password = "Пароль должен содержать цифру";
-    if (!/[!.-]/.test(form.password)) newErrors.password = "Пароль должен содержать символ (! . -)";
     if (!/^\d{10,}$/.test(form.telephone)) newErrors.telephone = "Телефон должен содержать минимум 10 цифр";
-    try {
-      new URL(form.avatar);
-    } catch {
-      newErrors.avatar = "Ссылка на аватар некорректна";
+    
+    // Валидация аватара только если поле не пустое
+    if (form.avatar.trim() && form.avatar.trim() !== '') {
+      try {
+        new URL(form.avatar);
+      } catch {
+        newErrors.avatar = "Ссылка на аватар некорректна";
+      }
     }
 
     return newErrors;
@@ -80,7 +93,7 @@ function Register() {
     <>
       <div className="register-container">
         <div className="section-register-1">
-          <h2>Регистрация</h2>
+          <h2>Создать аккаунт</h2>
 
           <form onSubmit={handleSubmit} className="register-form">
             <div className="field-group">
@@ -104,6 +117,7 @@ function Register() {
             <div className="field-group">
               <label>Пароль</label>
               <input name="password" value={form.password} onChange={handleChange} type="password" placeholder="Введите пароль" />
+              <PasswordStrength password={form.password} />
               {errors.password && <span className="error">{errors.password}</span>}
             </div>
 
@@ -126,11 +140,22 @@ function Register() {
             </div>
 
             <button type="submit" disabled={loading} className="btn-primary">
-              {loading ? 'Загрузка...' : 'Зарегистрироваться'}
+              {loading ? (
+                <>
+                  <div className="loading-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                  Загрузка...
+                </>
+              ) : (
+                'Создать аккаунт'
+              )}
             </button>
 
             <Link to={'/login'} className="link-login">
-              Уже есть аккаунт? Войти
+              Уже есть аккаунт? Войти в систему
             </Link>
           </form>
         </div>

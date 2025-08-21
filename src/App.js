@@ -8,7 +8,7 @@ import { AuthProvider } from "./utils/authContext";
 import FlightDetails from "./pages/ticketsDetails";
 import Basket from './pages/basket';
 import BookedFlightDetails from "./pages/bookedTicketsDetails";
-import Layout from './components/layot';
+import Layout from './components/layout';
 
 function App() {
   return (

@@ -33,11 +33,13 @@ function Profile() {
                 const saved = localStorage.getItem('currentUser');
                 if (saved) {
                     const parsed = JSON.parse(saved);
-                    if (parsed && typeof parsed === 'object') {
+                    if (parsed && typeof parsed === 'object' && parsed.id) {
                         setForm(parsed);
                     }
                 }
-            } catch { }
+            } catch (error) {
+                console.warn('Ошибка при загрузке данных из localStorage:', error);
+            }
         }
 
         if (!loading && !user) {
@@ -62,7 +64,9 @@ function Profile() {
 
             try {
                 localStorage.setItem('currentUser', JSON.stringify(updated.data));
-            } catch { }
+            } catch (error) {
+                console.warn('Не удалось сохранить обновленные данные в localStorage:', error);
+            }
 
             alert(`${field} обновлён`);
             toggleEdit(field);
@@ -87,7 +91,9 @@ function Profile() {
                 await logoutUser();
                 try {
                     localStorage.removeItem('currentUser');
-                } catch { }
+                } catch (error) {
+                    console.warn('Не удалось удалить данные из localStorage:', error);
+                }
 
                 navigate('/login');
             } catch (error) {
@@ -110,7 +116,18 @@ function Profile() {
 
     return (
         <div className="profile-container">
-            <h2>Профиль пользователя</h2>
+            <h2 style={{
+                background: 'linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                fontWeight: 700,
+                fontSize: 'var(--font-size-3xl)',
+                textAlign: 'center',
+                marginBottom: 'var(--spacing-8)'
+            }}>
+                👤 Профиль пользователя
+            </h2>
 
             <div className="profile-photo-container">
                 <img src={form.avatar} alt="avatar" className="avatar-preview" />
@@ -118,22 +135,35 @@ function Profile() {
 
             {['avatar', 'name', 'lastname', 'telephone'].map(field => (
                 <div className="field-group" key={field}>
-                    <label>{field === 'avatar' ? 'Фото профиля' : field === 'name' ? 'Имя' : field === 'lastname' ? 'Фамилия' : 'Телефон'}</label>
+                    <label>
+                        {field === 'avatar' ? '🖼️ Фото профиля' : 
+                         field === 'name' ? '👤 Имя' : 
+                         field === 'lastname' ? '👤 Фамилия' : 
+                         '📱 Телефон'}
+                    </label>
                     <div className="field-inline">
                         <input
                             name={field}
                             value={form[field] || ''}
                             onChange={handleChange}
                             readOnly={!editFields[field]}
+                            placeholder={field === 'avatar' ? 'Ссылка на фото' : 
+                                       field === 'name' ? 'Введите имя' : 
+                                       field === 'lastname' ? 'Введите фамилию' : 
+                                       'Введите телефон'}
                         />
-                        <FaEdit className="edit-icon" onClick={() => toggleEdit(field)} />
+                        <FaEdit 
+                            className="edit-icon" 
+                            onClick={() => toggleEdit(field)}
+                            title={editFields[field] ? 'Отменить редактирование' : 'Редактировать'}
+                        />
                         {editFields[field] && (
                             <button
                                 className="update-btn"
                                 onClick={() => handleSaveField(field)}
                                 disabled={updating}
                             >
-                                {updating ? <CircularProgress size={20} /> : 'Сохранить'}
+                                {updating ? <CircularProgress size={20} /> : '💾 Сохранить'}
                             </button>
                         )}
                     </div>
@@ -141,7 +171,7 @@ function Profile() {
             ))}
 
             <button onClick={handleDelete} className="delete-btn">
-                Удалить профиль
+                🗑️ Удалить профиль
             </button>
         </div>
     );

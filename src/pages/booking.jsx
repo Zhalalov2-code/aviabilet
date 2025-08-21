@@ -52,7 +52,10 @@ function SearchResults() {
 
         setTickets(filtered);
       })
-      .catch(() => setTickets([]))
+      .catch((error) => {
+        console.error("Ошибка при загрузке билетов:", error);
+        setTickets([]);
+      })
       .finally(() => setLoading(false));
   }, [fromInput, toInput, dateInput]);
 
@@ -89,10 +92,10 @@ function SearchResults() {
         <h2 className="page-title">
           {fromInput || toInput || dateInput ? (
             <>
-              Результаты поиска: {fromInput && `с ${fromInput}`} {toInput && `на ${toInput}`} {dateInput && `(туда: ${dateInput.toLocaleDateString("ru-RU")})`}
+              ✈️ Результаты поиска: {fromInput && `с ${fromInput}`} {toInput && `на ${toInput}`} {dateInput && `(туда: ${dateInput.toLocaleDateString("ru-RU")})`}
             </>
           ) : (
-            "Все доступные авиабилеты"
+            "✈️ Все доступные авиабилеты"
           )}
         </h2>
 
@@ -164,7 +167,7 @@ function SearchResults() {
 
         {loading ? (
           <div className="loading-spinner">
-            <CircularProgress />
+            <CircularProgress size={60} />
           </div>
         ) : (
           <>
@@ -176,9 +179,11 @@ function SearchResults() {
                 />
               ))
             ) : (
-              <p className="text-center">
-                Билеты не найдены. Попробуйте изменить параметры поиска.
-              </p>
+              <div className="no-results">
+                <p>
+                  Билеты не найдены. Попробуйте изменить параметры поиска.
+                </p>
+              </div>
             )}
           </>
         )}
